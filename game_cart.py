@@ -150,21 +150,17 @@ class Car:
 
         if self.check_finish_line(x, y):
 
-
             return 10, True
 
-
         if self.sp > 50:
-
 
             self.restart = True
 
             return -10, False
 
-
         if np.count_nonzero(np.array(self.sens_lens)) == 0: return 0, False
         else:
-
+          
             return - round(np.count_nonzero(np.array(self.sens_lens)) / float(len(self.sensors)), 2), False
 
 
@@ -279,7 +275,6 @@ class Car:
         screen.blit(course, (0,0))
 
         pos = [int(self.x), int(self.y)]
-
         self.sensors_calc(pos, False)
 
         reward, done = self.bound_check()
@@ -288,45 +283,31 @@ class Car:
         screen.blit(car_, (pos))
 
         mini_display = self.zoom()
-
         mini_disp = pygame.Surface((zoom_window, zoom_window))
-
         mini_display = rgb2gray(mini_display)
-
         mini_display = rotate(mini_display, self.angle, reshape=False)
-
         zoom_diff = (zoom_slice - zoom_window)// 2
-
         mini_display = mini_display[ zoom_diff : zoom_diff + zoom_window, zoom_diff : zoom_diff + zoom_window]
-
-
         mini_display = cv2.resize(mini_display, (0,0), fx=(scale), fy=(scale))
 
-
         draw = np.zeros((int(zoom_window * scale), int(zoom_window * scale), 3))
-
         for i in range(3): draw[:,:, i] = mini_display
-
         draw = cv2.resize(draw, (0,0), fx=(1/scale), fy=(1/scale))
         draw = np.rot90(draw,2)
 
         mini_display =  mini_display / 255.
-
-        pre = mini_display.reshape(1, mini_display.shape[0], mini_display.shape[1], 1)
-
+        state = mini_display.reshape(1, mini_display.shape[0], mini_display.shape[1], 1)
 
         screen.blit(course, (0,0))
-
         pygame.surfarray.blit_array(mini_disp, draw)
         screen.blit(mini_disp, (W - zoom_window, H - zoom_window))
-
         car_ = rot_center(car, self.angle)
         screen.blit(car_, (pos))
         pygame.display.flip()
 
         if self.restart: self.__init__()
 
-        return pre, reward, done
+        return state, reward, done
 
     def zoom(self):
 
