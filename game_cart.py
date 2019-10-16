@@ -10,14 +10,12 @@ from math import ceil
 import cv2
 from scipy.ndimage import rotate
 
-
 os.chdir(os.getcwd())
 
 div = 2
 
 pygame.init()
 pygame.display.set_caption('SGD')
-
 
 screen = pygame.display.set_mode((1200//div, 950//div))
 
@@ -54,15 +52,18 @@ pygame.font.init() # you have to call this at the start,
                    # if you want to use this module.
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
 
+
 def rot_center(image, angle):
-    """rotate an image while keeping its center and size"""
-    orig_rect = image.get_rect()
+
+  orig_rect = image.get_rect()
     rot_image = pygame.transform.rotate(image, angle)
     rot_rect = orig_rect.copy()
     rot_rect.center = rot_image.get_rect().center
     rot_image = rot_image.subsurface(rot_rect).copy()
+    
     return rot_image
 
+  
 def rgb2gray(rgb):
 
     r, g, b = rgb[:,:,0], rgb[:,:,1], rgb[:,:,2]
@@ -71,10 +72,13 @@ def rgb2gray(rgb):
     return gray.astype("uint8")
 
 def img_array_to_single_val(arr, color_codes):
+  
     result = np.ndarray(shape=arr.shape[:2], dtype=int)
     result[:,:] = -1
     for rgb, idx in color_codes.items():
+      
         result[(arr==rgb).all(2)] = idx
+        
     return result
 
 
