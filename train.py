@@ -14,7 +14,6 @@ import numpy as np
 from random import randint
 from time import time, sleep
 from collections import deque
-from threading import Thread
 
 class DQNAgent:
 
