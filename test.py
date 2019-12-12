@@ -37,7 +37,7 @@ class DQNAgent:
         model.add(Flatten())
         model.add(Dense(32, input_dim=self.state_size, activation='relu'))      
         model.add(Dense(32, input_dim=self.state_size, activation='relu'))         
-         model.add(Dense(self.action_size, activation='linear'))
+        model.add(Dense(self.action_size, activation='linear'))
 
         return model
         
