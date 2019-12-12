@@ -77,6 +77,6 @@ if __name__ == "__main__":
             pressed = pygame.key.get_pressed()            
             if pressed[pygame.K_q]: pygame.quit()            
             
-            clock.tick(300)
+            clock.tick(60)
  
 
