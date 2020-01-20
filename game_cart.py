@@ -57,6 +57,7 @@ def rgb2gray(rgb):
     gray = 0.2989 * r + 0.5870 * g + 0.1140 * b
     return gray.astype("uint8")
 
+
 def img_array_to_single_val(arr, color_codes):  
     result = np.ndarray(shape=arr.shape[:2], dtype=int)
     result[:,:] = -1
@@ -198,7 +199,6 @@ class Car:
                 if self.steer_angle > -self.max_steer_angle: self.steer_angle  -= 1
 
             else:
-
                 if self.steer_angle > 0: self.steer_angle -= 1
                 elif self.steer_angle < 0: self.steer_angle += 1
 
