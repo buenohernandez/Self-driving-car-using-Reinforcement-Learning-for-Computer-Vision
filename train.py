@@ -85,25 +85,14 @@ if __name__ == "__main__":
     agent = DQNAgent(env.state_size,env.act_size)
     start = time()
     trials = 100 
-    run = 0
-    max_run = 0
 
     for step in range(trials):        
         state, _, _ = env.run()
 
         for trial in range(512):
             action = agent.act(state)
-            next_state, reward, done  = env.run(action)  
-            
-            if reward != -10:                 
-                run += 1
-                
-                if run > max_run: max_run = run
-                
-            else:
-                run = 0
-                            
-            print(step, trial, reward, action, run, max_run)
+            next_state, reward, done  = env.run(action)                              
+            print(step, trial, reward, action)
             agent.remember(state, action, reward, next_state, done)
             agent.replay(32)
             pressed = pygame.key.get_pressed()
